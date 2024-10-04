@@ -1,1 +1,1 @@
-# Click on the link (git@github.com:surajbartoula/camera.git) to view my live portfolio.
+# Click on the link  https://surajbartoula.github.io/portfolio/ to view my live portfolio.
