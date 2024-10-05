@@ -1,42 +1,40 @@
-import React, { useEffect } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls, Sky } from '@react-three/drei';
-
-const Box = ({ position }) => (
-  <mesh position={position}>
-    <boxGeometry args={[1, 1, 1]} />
-    <meshStandardMaterial color="orange" />
-  </mesh>
-);
-
-const Scene = () => {
-  const { camera, size } = useThree();
-
-  useEffect(() => {
-    // Update the camera aspect ratio to match the canvas size
-    camera.aspect = size.width / size.height;
-    camera.updateProjectionMatrix();
-  }, [camera, size]);
-
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1.5} />
-      <Sky sunPosition={[100, 20, 100]} turbidity={10} rayleigh={2} />
-      <Box position={[0, 0, 0]} />
-      <Box position={[1, 1, 1]} />
-      <OrbitControls />
-    </>
-  );
-};
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
 const App = () => {
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
-      <Canvas camera={{ position: [10, 1, 5], fov: 25, near: 1, far: 20 }}>
-        <Scene />
-      </Canvas>
-    </div>
+    <Canvas shadows camera={{ position: [0, 1, 5], fov: 50 }}>
+      {/* Lights */}
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+
+      {/* A simple ground plane */}
+      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[50, 50]} />
+        <meshStandardMaterial 
+		color="#632420"
+		blur={[300, 30]}
+		resolution={2048}
+		mixBlur={1}
+		mixStrength={180}
+		roughness={1}
+		depthScale={1.2}
+		minDepthThreshold={0.4}
+		maxDepthThreshold={1.4}
+		metalness={0.8}
+		/>
+      </mesh>
+
+      {/* A cube for testing */}
+      <mesh castShadow position={[0, 1, 0]}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
+
+      {/* OrbitControls to move the camera */}
+      <OrbitControls />
+    </Canvas>
   );
 };
 
