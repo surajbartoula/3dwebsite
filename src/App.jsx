@@ -1,38 +1,33 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+
+const Model = ({ url }) => {
+  const { scene } = useGLTF(url);
+  return <primitive object={scene} scale={1} />;
+};
 
 const App = () => {
   return (
-    <Canvas shadows camera={{ position: [0, 1, 5], fov: 50 }}>
+    <Canvas shadows camera={{ position: [2, 9, 30], fov: 50 }}>
       {/* Lights */}
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
 
-      {/* A simple ground plane */}
+      {/* Ground plane */}
       <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[50, 50]} />
         <meshStandardMaterial 
-		color="#632420"
-		blur={[300, 30]}
-		resolution={2048}
-		mixBlur={1}
-		mixStrength={180}
-		roughness={1}
-		depthScale={1.2}
-		minDepthThreshold={0.4}
-		maxDepthThreshold={1.4}
-		metalness={0.8}
-		/>
+          color="#632420"
+          roughness={1}
+          metalness={0.8}
+        />
       </mesh>
 
-      {/* A cube for testing */}
-      <mesh castShadow position={[0, 1, 0]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="orange" />
-      </mesh>
+      {/* 3D Model */}
+      <Model url="/portfolio/computers_1-transformed.glb" />
 
-      {/* OrbitControls to move the camera */}
+      {/* Camera Controls */}
       <OrbitControls />
     </Canvas>
   );
