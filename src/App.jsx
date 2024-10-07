@@ -1,6 +1,8 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { easing } from 'maath'; // Ensure you have maath installed for easing
 
 const Model = ({ url }) => {
   const { scene } = useGLTF(url);
@@ -29,8 +31,25 @@ const App = () => {
 
       {/* Camera Controls */}
       <OrbitControls />
+	  <CameraRig />
     </Canvas>
   );
 };
+
+function CameraRig() {
+  useFrame((state, delta) => {
+    const { width, height } = state.viewport;
+    const x = (state.pointer.x * width) / 3;
+    const y = (state.pointer.y * height) / 2;
+
+    // Adjust the camera position smoothly
+    easing.damp3(state.camera.position, [-1 + x, 5 + y, 30], 0.5, delta);
+    
+    // Make sure the camera is looking at the center of the scene
+    state.camera.lookAt(0, 0, 0);
+  });
+
+  return null;
+}
 
 export default App;
