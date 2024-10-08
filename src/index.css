@@ -1,9 +1,36 @@
 /* index.css */
-html, body, #root, canvas {
+body, #root, canvas {
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	width: 100%;
 	display: block;
-	background-color: black;
+	background-color: #6DD5FA;
   }
+
+  html {
+	overflow: scroll;
+	overflow-x: hidden;
+	font-size: 16px;
+	scroll-behavior: smooth;
+  }
+  
+  ::-moz-selection {
+	background: #00bfbf;
+	color: #fafafa;
+	text-shadow: none;
+  }
+  ::selection {
+	background: #00bfbf;
+	color: #fafafa;
+	text-shadow: none;
+  }
+  ::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+  }
+  p {
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+  }
+  

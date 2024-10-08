@@ -1,18 +1,19 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF('/portfolio/need_some_space.glb')
+export function Welcome(props) {
+  const { nodes, materials } = useGLTF('/portfolio/welcome_sign.glb')
   return (
     <group {...props} dispose={null}>
-      <points
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.Object_2.geometry}
-        material={materials['Scene_-_Root']}
+        material={materials.material}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={0.023}
       />
     </group>
   )
 }
 
-useGLTF.preload('/portfolio/need_some_space.glb')
+useGLTF.preload('/portfolio/welcome_sign.glb')
