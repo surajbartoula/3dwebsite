@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Welcome(props) {
-  const { nodes, materials } = useGLTF('/portfolio/welcome_sign.glb')
+  const { nodes, materials } = useGLTF('/3dwebsite/welcome_sign.glb')
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -16,4 +16,4 @@ export function Welcome(props) {
   )
 }
 
-useGLTF.preload('/portfolio/welcome_sign.glb')
+useGLTF.preload('/3dwebsite/welcome_sign.glb')
